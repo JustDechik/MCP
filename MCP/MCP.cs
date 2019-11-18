@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 class MCP
 {
@@ -38,13 +40,37 @@ class MCP
         for (int i = 2; i < n; i++)
         {
             int j = i;
-            while(j > 1 && Rotate(points[0], points[j - 1], points[j]) < 0)
+            while (j > 1 && Rotate(points[0], points[j - 1], points[j]) < 0)
             {
                 int[] temp = new int[2];
                 Array.Copy(points[j], temp, 2);
                 points[j] = points[j - 1];
                 points[j - 1] = temp;
+                j -= 1;
             }
+        }
+
+        // last step 
+
+        List<int[]> result = new List<int[]>();
+        result.Add(points[0]);
+        result.Add(points[1]);
+
+        for (int i = 2; i < n; i++)
+        {
+            int len = result.Count();
+            while (Rotate(result[len - 2], result[len - 1], points[i]) < 0)
+            {
+                result.RemoveAt(len - 1);
+                len -= 1;
+            }
+            result.Add(points[i]);
+        }
+         
+        foreach (int[] i in result)
+        {
+            Console.WriteLine(String.Format("x = {0}; y = {1}", i[0], i[1]));
+
         }
     }
 
