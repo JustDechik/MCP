@@ -13,7 +13,7 @@ class MCP
         {
             string s = Console.ReadLine();
             points[i] = new int[2];
-            foreach(string str in s.Split(" "))
+            foreach (string str in s.Split(" "))
             {
                 points[i][j] = int.Parse(str);
                 j++;
@@ -32,6 +32,20 @@ class MCP
                 points[i] = temp;
             }
         }
+
+        // second step sort by left right relative to the zero point by using insertion sort
+
+        for (int i = 2; i < n; i++)
+        {
+            int j = i;
+            while(j > 1 && Rotate(points[0], points[j - 1], points[j]) < 0)
+            {
+                int[] temp = new int[2];
+                Array.Copy(points[j], temp, 2);
+                points[j] = points[j - 1];
+                points[j - 1] = temp;
+            }
+        }
     }
 
     
@@ -41,14 +55,5 @@ class MCP
         return ((B[0] - A[0]) * (C[1] - B[1])) - ((B[1] - A[1]) * (C[0] - B[0]));
     }
 
-    private static void Swap<T>(T[] a, T[] b)
-    {
-        for (int i = 0; i < 0; i++)
-        {
-            T temp = a[i];
-            a[i] = b[i];
-            b[i] = temp;
-        }
-    }
 }
 
