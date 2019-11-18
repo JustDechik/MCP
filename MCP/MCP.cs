@@ -6,7 +6,18 @@ class MCP
     {
         Console.WriteLine("MCP\n");
 
+        int n = int.Parse(Console.ReadLine());
+        int[,] points = new int[n, 2];
 
+        for (int i = 0, j = 0; i < n; i++, j = 0)
+        {
+            string s = Console.ReadLine();
+            foreach(string str in s.Split(" "))
+            {
+                points[i,j] = int.Parse(str);
+                j++;
+            }
+        }
     }
 
     
